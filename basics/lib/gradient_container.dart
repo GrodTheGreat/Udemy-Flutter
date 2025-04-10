@@ -7,7 +7,7 @@ const endAlignment = Alignment.bottomRight;
 class GradientContainer extends StatelessWidget {
   final List<Color> colors;
 
-  const GradientContainer(this.colors, {super.key});
+  const GradientContainer({super.key, required this.colors});
 
   @override
   Widget build(BuildContext context) {
