@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(home: Scaffold(body: GradientContainer())));
+  runApp(const MaterialApp(home: Scaffold(body: GradientContainer())));
 }
 
 class GradientContainer extends StatelessWidget {
+  const GradientContainer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
