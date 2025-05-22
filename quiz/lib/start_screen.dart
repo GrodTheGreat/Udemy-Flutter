@@ -11,7 +11,17 @@ class StartScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: 40.0,
         children: [
-          Image.asset("assets/images/quiz-logo.png", width: 300),
+          // This is computationally expensive
+          // Opacity(
+          //   opacity: 0.6,
+          //   child: Image.asset("assets/images/quiz-logo.png", width: 300),
+          // ),
+          Image.asset(
+            "assets/images/quiz-logo.png",
+            width: 300,
+            color: const Color.fromARGB(150, 255, 255, 255),
+          ),
+
           const Text(
             "Learn Flutter the fun way!",
             style: TextStyle(color: Colors.white, fontSize: 20.0),
