@@ -24,7 +24,10 @@ class StartScreen extends StatelessWidget {
 
           const Text(
             "Learn Flutter the fun way!",
-            style: TextStyle(color: Colors.white, fontSize: 20.0),
+            style: TextStyle(
+              color: Color.fromARGB(255, 237, 223, 252),
+              fontSize: 24.0,
+            ),
           ),
           OutlinedButton.icon(
             onPressed: () {},
