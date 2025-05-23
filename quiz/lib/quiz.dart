@@ -39,7 +39,7 @@ class _QuizState extends State<Quiz> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          padding: const EdgeInsets.all(50.0),
+          // padding: const EdgeInsets.all(50.0),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
