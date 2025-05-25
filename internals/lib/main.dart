@@ -13,7 +13,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
-        appBar: AppBar(title: const Text('Flutter Internals')),
+        appBar: AppBar(
+          title: const Text('Flutter Internals'),
+        ),
         body: const UIUpdatesDemo(),
       ),
     );
