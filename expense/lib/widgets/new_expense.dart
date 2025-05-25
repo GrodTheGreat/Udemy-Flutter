@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  final void Function(Expense expense) onAddExpense;
+
+  const NewExpense(this.onAddExpense, {super.key});
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -40,6 +42,84 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    if (_titleController.text.trim().isEmpty) {
+      //   error
+      showDialog(
+        context: context,
+        builder:
+            (ctx) => AlertDialog(
+              title: const Text("Invalid input"),
+              content: const Text("Please make sure title is not empty"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                  },
+                  child: const Text("Okay"),
+                ),
+              ],
+            ),
+      );
+      return;
+    }
+    // tryParse("Hello") => null
+    var enteredAmount = double.tryParse(_amountController.text);
+    final amountIsValid = enteredAmount != null && enteredAmount > 0.0;
+    if (!amountIsValid) {
+      //error
+      showDialog(
+        context: context,
+        builder:
+            (ctx) => AlertDialog(
+              title: const Text("Invalid input"),
+              content: const Text(
+                "Please make sure amount is a positive number",
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                  },
+                  child: const Text("Okay"),
+                ),
+              ],
+            ),
+      );
+      return;
+    }
+    if (_selectedDate == null) {
+      // error
+      showDialog(
+        context: context,
+        builder:
+            (ctx) => AlertDialog(
+              title: const Text("Invalid input"),
+              content: const Text("Please make sure to select a date."),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                  },
+                  child: const Text("Okay"),
+                ),
+              ],
+            ),
+      );
+      return;
+    }
+
+    widget.onAddExpense(
+      Expense(
+        title: _titleController.text,
+        amount: enteredAmount,
+        date: _selectedDate!,
+        category: _selectedCategory,
+      ),
+    );
+    Navigator.pop(context);
+  }
+
   @override
   void dispose() {
     // Don't forget to destroy controllers when done!
@@ -51,7 +131,7 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
       child: Column(
         children: [
           TextField(
@@ -124,10 +204,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text("Cancel"),
               ),
               ElevatedButton(
-                onPressed: () {
-                  print(_titleController.text);
-                  print(_amountController.text);
-                },
+                onPressed: _submitExpenseData,
                 child: const Text("Save Expense"),
               ),
             ],
